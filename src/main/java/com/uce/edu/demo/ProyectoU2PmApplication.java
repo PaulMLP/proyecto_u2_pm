@@ -1,5 +1,6 @@
 package com.uce.edu.demo;
 
+import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner{
 
+	private static Logger a = Logger.getLogger(ProyectoU2PmApplication.class);
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
 	}
@@ -14,6 +17,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		a.debug("cualquier cosa");
 	}
 
 }
