@@ -6,8 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.service.IPersonaJdbcService;
-import com.uce.edu.demo.to.Persona;
+import com.uce.edu.demo.service.IEstudianteJdbcService;
+import com.uce.edu.demo.to.Estudiante;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -15,7 +15,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private IPersonaJdbcService iPersonaJdbcService;
+	private IEstudianteJdbcService iEstudianteJdbcService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
@@ -24,26 +24,30 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		Persona persona = new Persona();
-		persona.setId(2);
-		persona.setNombre("Leonardo");
-		persona.setApellido("Proaño");
+		Estudiante estudiante = new Estudiante();
+		estudiante.setId(1);
+		estudiante.setNombre("Paul");
+		estudiante.setApellido("Merizalde");
+		estudiante.setCarrera("Ingenieria en Computacion");
+		estudiante.setSemestre("5");
 
 		// Insertar
-		// this.iPersonaJdbcService.guardar(persona);
+		this.iEstudianteJdbcService.guardar(estudiante);
 
 		// Buscar
-		LOG.info((this.iPersonaJdbcService.buscarPersona(1)));
+		LOG.info((this.iEstudianteJdbcService.buscarEstudiante(1)));
 
 		// Actualizar
-//		Persona per1 = new Persona();
-//		per1.setId(2);
-//		per1.setNombre("Leonardo");
-//		per1.setApellido("Yanez");
-//		this.iPersonaJdbcService.actualizar(per1);
+		Estudiante est1 = new Estudiante();
+		est1.setId(1);
+		est1.setNombre("Paul");
+		est1.setApellido("Merizalde");
+		est1.setCarrera("Ingenieria en Computacion");
+		est1.setSemestre("6");
+		this.iEstudianteJdbcService.actualizar(est1);
 
 		// Eliminar
-		// this.iPersonaJdbcService.eliminar(3);
+		//this.iEstudianteJdbcService.eliminar(1);
 	}
 
 }
