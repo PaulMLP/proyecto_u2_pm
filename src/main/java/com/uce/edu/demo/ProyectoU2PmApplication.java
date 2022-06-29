@@ -6,8 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.service.IEstudianteJdbcService;
-import com.uce.edu.demo.to.Estudiante;
+import com.uce.edu.demo.repository.modelo.Persona;
+import com.uce.edu.demo.service.IPersonaJdbcService;
+import com.uce.edu.demo.service.IPersonaJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -15,7 +16,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private IEstudianteJdbcService iEstudianteJdbcService;
+	private IPersonaJpaService personaJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
@@ -23,31 +24,25 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		Estudiante estudiante = new Estudiante();
-		estudiante.setId(1);
-		estudiante.setNombre("Paul");
-		estudiante.setApellido("Merizalde");
-		estudiante.setCarrera("Ingenieria en Computacion");
-		estudiante.setSemestre("5");
-
-		// Insertar
-		this.iEstudianteJdbcService.guardar(estudiante);
-
 		// Buscar
-		LOG.info((this.iEstudianteJdbcService.buscarEstudiante(1)));
+		LOG.info("Dato con JPA: " + this.personaJpaService.buscarPorId(1));
+		Persona per = new Persona();
+		per.setId(5);
+		per.setNombre("Pepito");
+		per.setApellido("Perez");
+
+		// Guardar
+		this.personaJpaService.guardar(per);
 
 		// Actualizar
-		Estudiante est1 = new Estudiante();
-		est1.setId(1);
-		est1.setNombre("Paul");
-		est1.setApellido("Merizalde");
-		est1.setCarrera("Ingenieria en Computacion");
-		est1.setSemestre("6");
-		this.iEstudianteJdbcService.actualizar(est1);
+		Persona per1 = new Persona();
+		per1.setId(2);
+		per1.setNombre("David");
+		per1.setApellido("Mendez");
+		this.personaJpaService.actualizar(per1);
 
 		// Eliminar
-		//this.iEstudianteJdbcService.eliminar(1);
+		this.personaJpaService.eliminar(1);
 	}
 
 }
