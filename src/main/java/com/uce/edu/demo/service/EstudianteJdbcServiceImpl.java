@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.ProyectoU2PmApplication;
 import com.uce.edu.demo.repository.IEstudianteJdbcRepository;
-import com.uce.edu.demo.to.Estudiante;
+import com.uce.edu.demo.to.EstudianteTo;
 
 @Service
 public class EstudianteJdbcServiceImpl implements IEstudianteJdbcService{
@@ -17,18 +17,18 @@ public class EstudianteJdbcServiceImpl implements IEstudianteJdbcService{
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 	
 	@Override
-	public Estudiante buscarEstudiante(int id) {
+	public EstudianteTo buscarEstudiante(int id) {
 		return this.iEstudianteJdbcRepository.buscarEstudiante(id);
 	}
 
 	@Override
-	public void guardar(Estudiante estudiante) {
+	public void guardar(EstudianteTo estudiante) {
 		LOG.debug("Se inserta el estudiante: "+estudiante);
 		this.iEstudianteJdbcRepository.insertar(estudiante);
 	}
 
 	@Override
-	public void actualizar(Estudiante estudiante) {
+	public void actualizar(EstudianteTo estudiante) {
 		LOG.debug("Se actualiza el estudiante: "+estudiante);
 		this.iEstudianteJdbcRepository.actualizar(estudiante);
 	}

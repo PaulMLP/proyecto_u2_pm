@@ -6,9 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.service.IPersonaJdbcService;
-import com.uce.edu.demo.service.IPersonaJpaService;
+import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.service.IEstudianteJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -16,7 +15,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private IPersonaJpaService personaJpaService;
+	private IEstudianteJpaService estudianteJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
@@ -24,25 +23,32 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Buscar
-		LOG.info("Dato con JPA: " + this.personaJpaService.buscarPorId(1));
-		Persona per = new Persona();
-		per.setId(5);
-		per.setNombre("Pepito");
-		per.setApellido("Perez");
+		
+		Estudiante est = new Estudiante();
+		est.setNombre("Paul");
+		est.setApellido("Perez");
+		est.setCarrera("Arquitectura");
+		est.setSemestre("2");
+		est.setId(1);
 
 		// Guardar
-		this.personaJpaService.guardar(per);
+		this.estudianteJpaService.insertar(est);
 
+		// Buscar
+		LOG.info("Dato con JPA: " + this.estudianteJpaService.buscarEstudiante(1));
+				
+				
 		// Actualizar
-		Persona per1 = new Persona();
-		per1.setId(2);
-		per1.setNombre("David");
-		per1.setApellido("Mendez");
-		this.personaJpaService.actualizar(per1);
-
+		Estudiante est1 = new Estudiante();
+		est1.setId(1);
+		est1.setNombre("Paul");
+		est1.setApellido("Perez");
+		est1.setCarrera("Ingenieria Civil");
+		est1.setSemestre("3");
+		this.estudianteJpaService.actualizar(est1);
+		
 		// Eliminar
-		this.personaJpaService.eliminar(1);
+		this.estudianteJpaService.eliminar(1);
 	}
 
 }
