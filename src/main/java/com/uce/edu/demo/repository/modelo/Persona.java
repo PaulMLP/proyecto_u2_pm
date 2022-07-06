@@ -13,28 +13,36 @@ import javax.persistence.Table;
 public class Persona {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "pers_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pers_seq_id")
 	@SequenceGenerator(name="pers_seq_id",sequenceName="pers_seq_id", allocationSize = 1)
 	private Integer id;
 	
-	@Column(name = "nombre")
+	@Column(name = "pers_nombre")
 	private String nombre;
 	
-	@Column(name = "apellido")
+	@Column(name = "pers_genero")
+	private String genero;
+	
+	@Column(name = "pers_apellido")
 	private String apellido;
 	
+	@Column(name = "pers_cedula")
+	private String cedula;
+	
+
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "]";
+		return "Persona [id=" + id + ", nombre=" + nombre + ", genero=" + genero + ", apellido=" + apellido
+				+ ", cedula=" + cedula + "]";
 	}
 
 	// SET y GET
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -46,6 +54,14 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
 	public String getApellido() {
 		return apellido;
 	}
@@ -53,4 +69,13 @@ public class Persona {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+	
 }
