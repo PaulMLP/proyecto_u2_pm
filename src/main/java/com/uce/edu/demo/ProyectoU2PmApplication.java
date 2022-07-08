@@ -27,7 +27,11 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// Buscar
 		LOG.info("Dato con JPQL: " + this.personaJpaService.buscarPorCedula("172834567"));
-		List<Persona> listaPersona = this.personaJpaService.buscarPorApelldio("Merizalde");
+		List<Persona> listaPersona = this.personaJpaService.buscarPorGenero("M");
+		for  (Persona item : listaPersona) {
+			LOG.info(item);
+		}
+		List<Persona> listaPersonaN = this.personaJpaService.buscarPorNombre("Paul");
 		for  (Persona item : listaPersona) {
 			LOG.info(item);
 		}

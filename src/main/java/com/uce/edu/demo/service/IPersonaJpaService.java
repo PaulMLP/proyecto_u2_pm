@@ -5,6 +5,8 @@ import java.util.List;
 import com.uce.edu.demo.repository.modelo.Persona;
 
 public interface IPersonaJpaService {
+	public List<Persona> buscarPorNombre(String nombre);
+	
 	public List<Persona> buscarPorGenero(String genero);
 	
 	public List<Persona> buscarPorApelldio(String apellido);
