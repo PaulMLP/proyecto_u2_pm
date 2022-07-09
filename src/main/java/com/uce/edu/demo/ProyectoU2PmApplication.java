@@ -25,32 +25,10 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Buscar
-		LOG.info("Dato con JPQL: " + this.personaJpaService.buscarPorCedula("172834567"));
-		List<Persona> listaPersona = this.personaJpaService.buscarPorGenero("M");
-		for  (Persona item : listaPersona) {
-			LOG.info(item);
-		}
-		List<Persona> listaPersonaN = this.personaJpaService.buscarPorNombre("Paul");
-		for  (Persona item : listaPersona) {
-			LOG.info(item);
-		}
-		// Guardar
-		Persona per = new Persona();
-		per.setNombre("Paul");
-		per.setApellido("Merizalde");
-		per.setCedula("1728289521");
-		per.setGenero("M");
-		//this.personaJpaService.guardar(per);
-
-		// Actualizar
-		Persona per1 = new Persona();
-		per1.setId(7);
-		per1.setNombre("Paul");
-		per1.setApellido("Merizalde");
-		//this.personaJpaService.actualizar(per1);
-
-		// Eliminar
-		//this.personaJpaService.eliminar(1);
+		//Actualizar con JPQL
+		int resultado = this.personaJpaService.actualizarPorApellido("F", "Perez");
+		LOG.info("Cantidad de registros actualizados: "+ resultado);
+		resultado = this.personaJpaService.eliminarPorGenero("M");
+		LOG.info("Cantidad de registros eliminados: "+ resultado);
 	}
 }
