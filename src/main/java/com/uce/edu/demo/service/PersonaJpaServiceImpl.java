@@ -9,11 +9,11 @@ import com.uce.edu.demo.repository.IPersonaJpaRepository;
 import com.uce.edu.demo.repository.modelo.Persona;
 
 @Service
-public class PersonaJpaServiceImpl implements IPersonaJpaService{
+public class PersonaJpaServiceImpl implements IPersonaJpaService {
 
 	@Autowired
 	private IPersonaJpaRepository iPersonaJpaRepository;
-	
+
 	@Override
 	public Persona buscarPorId(Integer id) {
 		return this.iPersonaJpaRepository.buscarPorId(id);
@@ -26,17 +26,36 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService{
 
 	@Override
 	public void actualizar(Persona persona) {
-		this.iPersonaJpaRepository.actualizar(persona);	
+		this.iPersonaJpaRepository.actualizar(persona);
 	}
 
 	@Override
 	public void eliminar(Integer id) {
-		this.iPersonaJpaRepository.eliminar(id);	
+		this.iPersonaJpaRepository.eliminar(id);
 	}
 
 	@Override
 	public Persona buscarPorCedula(String cedula) {
 		return this.iPersonaJpaRepository.buscarPorCedula(cedula);
+	}
+
+	// Query JPQL
+	// Typed
+	@Override
+	public Persona buscarPorCedulaTyped(String cedula) {
+		return this.iPersonaJpaRepository.buscarPorCedulaTyped(cedula);
+	}
+
+	// Named
+	@Override
+	public Persona buscarPorCedulaNamed(String cedula) {
+		return this.iPersonaJpaRepository.buscarPorCedulaNamed(cedula);
+	}
+
+	// Typed - Named
+	@Override
+	public Persona buscarPorCedulaTypedNamed(String cedula) {
+		return this.iPersonaJpaRepository.buscarPorCedulaTypedNamed(cedula);
 	}
 
 	@Override
@@ -57,6 +76,11 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService{
 	@Override
 	public int actualizarPorApellido(String genero, String apellido) {
 		return this.iPersonaJpaRepository.actualizarPorApellido(genero, apellido);
+	}
+
+	@Override
+	public List<Persona> buscarPorNombreApellido(String nombre, String apellido) {
+		return this.iPersonaJpaRepository.buscarPorNombreApellido(nombre, apellido);
 	}
 
 	@Override
