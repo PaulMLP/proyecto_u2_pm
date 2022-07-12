@@ -8,8 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.service.IPersonaJpaService;
+import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.service.IEstudianteJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -17,7 +17,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private IPersonaJpaService personaJpaService;
+	private IEstudianteJpaService estudianteJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
@@ -25,28 +25,43 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Persona per1 = new Persona();
-		per1.setApellido("Gonzalez");
-		per1.setNombre("Daniel");
-		per1.setCedula("3212141");
-		per1.setGenero("M");
-		//this.personaJpaService.guardar(per1);
-		
+		Estudiante est = new Estudiante();
+		est.setNombre("Paul");
+		est.setApellido("Merizalde");
+		est.setCedula("1728189521");
+		est.setCarrera("Ing Computacion");
+		est.setSemestre(3);
+		est.setEdad(22);
+		est.setGenero("M");
+		this.estudianteJpaService.guardar(est);
+
 		// 1. TypedQuery
-		Persona perTyped= this.personaJpaService.buscarPorCedulaTyped("177777777");
-		LOG.info("Persona Typed: "+perTyped);
+		LOG.info("Estudiante Typed: " + this.estudianteJpaService.buscarPorCedula("1728189521"));
+
+		List<Estudiante> listaEstudiante = this.estudianteJpaService.buscarPorApellidoGenero("Merizalde", "M");
+		for (Estudiante item : listaEstudiante) {
+			LOG.info("Estudiante Typed: " + item);
+		}
 		
-		//2. NamedQuery
-		Persona perNamed = this.personaJpaService.buscarPorCedulaNamed("177777777");
-		LOG.info("Persona Named: "+perNamed);
+		// 2. NamedQuery
+		listaEstudiante = this.estudianteJpaService.buscarPorSemestre(1);
+		for (Estudiante item : listaEstudiante) {
+			LOG.info("Estudiante Named: " + item);
+		}
 		
-		//3. TypedQuery y NamedQuery
-		Persona perTypedNamed = this.personaJpaService.buscarPorCedulaTypedNamed("177777777");
-		LOG.info("Persona TypedNamed: "+perTypedNamed);
+		listaEstudiante = this.estudianteJpaService.buscarPorEdad(17);
+		for (Estudiante item : listaEstudiante) {
+			LOG.info("Estudiante Named: " + item);
+		}
+		// 3. TypedQuery y NamedQuery
+		listaEstudiante = this.estudianteJpaService.buscarPorEdadGenero(18, "M");
+		for (Estudiante item : listaEstudiante) {
+			LOG.info("Estudiante TypedNamed: " + item);
+		}
 		
-		List<Persona> listaPersona = this.personaJpaService.buscarPorNombreApellido("Daniel", "Gonzalez");
-		for (Persona item : listaPersona) {
-			LOG.info("Persona TypedNamed: " + item);
+		listaEstudiante = this.estudianteJpaService.buscarPorCarreraSemestre("Ing Computacion", 3);
+		for (Estudiante item : listaEstudiante) {
+			LOG.info("Estudiante TypedNamed: " + item);
 		}
 	}
 }

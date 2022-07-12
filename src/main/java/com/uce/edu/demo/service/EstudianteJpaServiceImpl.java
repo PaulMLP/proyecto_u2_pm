@@ -1,5 +1,7 @@
 package com.uce.edu.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,7 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 	private IEstudianteJpaRepository iEstudianteJpaRepository;
 
 	@Override
-	public Estudiante buscarEstudiante(Integer id) {
-		return this.iEstudianteJpaRepository.buscarEstudiante(id);
-	}
-
-	@Override
-	public void insertar(Estudiante estudiante) {
+	public void guardar(Estudiante estudiante) {
 		this.iEstudianteJpaRepository.insertar(estudiante);
 	}
 
@@ -28,8 +25,33 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 	}
 
 	@Override
-	public void eliminar(Integer id) {
-		this.iEstudianteJpaRepository.eliminar(id);
+	public Estudiante buscarPorCedula(String cedula) {
+		return this.iEstudianteJpaRepository.buscarPorCedula(cedula);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorApellidoGenero(String apellido, String genero) {
+		return this.iEstudianteJpaRepository.buscarPorApellidoGenero(apellido, genero);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEdadGenero(Integer edad, String genero) {
+		return this.iEstudianteJpaRepository.buscarPorEdadGenero(edad, genero);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorCarreraSemestre(String carrera, Integer semestre) {
+		return this.iEstudianteJpaRepository.buscarPorCarreraSemestre(carrera, semestre);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestre(Integer semestre) {
+		return this.iEstudianteJpaRepository.buscarPorSemestre(semestre);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEdad(Integer edad) {
+		return this.iEstudianteJpaRepository.buscarPorEdad(edad);
 	}
 
 }
