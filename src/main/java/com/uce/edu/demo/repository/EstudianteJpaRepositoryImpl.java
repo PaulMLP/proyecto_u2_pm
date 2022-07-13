@@ -69,14 +69,14 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 	public List<Estudiante> buscarPorSemestre(Integer semestre) {
 		Query myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorSemestre");
 		myQuery.setParameter("datoSemestre", semestre);
-		return (List) myQuery.getResultList();
+		return myQuery.getResultList();
 	}
 
 	@Override
 	public List<Estudiante> buscarPorEdad(Integer edad) {
 		Query myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorEdad");
 		myQuery.setParameter("datoEdad", edad);
-		return (List) myQuery.getResultList();
+		return myQuery.getResultList();
 	}
 
 }

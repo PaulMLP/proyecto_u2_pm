@@ -73,6 +73,22 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		return myQuery.getSingleResult();
 	}
 
+	// NativeQuery
+	@Override
+	public Persona buscarPorCedulaNative(String cedula) {
+		Query myQuery = this.entityManager.createNativeQuery("SELECT * FROM persona WHERE pers_cedula = :datoCedula",
+				Persona.class);
+		myQuery.setParameter("datoCedula", cedula);
+		return (Persona) myQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaNamedNative(String cedula) {
+		TypedQuery<Persona> myQuery = this.entityManager.createNamedQuery("Persona.buscarPorCedulaNative", Persona.class);
+		myQuery.setParameter("datoCedula", cedula);
+		return myQuery.getSingleResult();
+	}
+
 	@Override
 	public List<Persona> buscarPorGenero(String genero) {
 		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.genero = :datoGenero");
