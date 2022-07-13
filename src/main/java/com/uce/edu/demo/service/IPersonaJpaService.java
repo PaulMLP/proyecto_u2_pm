@@ -28,6 +28,9 @@ public interface IPersonaJpaService {
 	public Persona buscarPorCedulaNamedNative(String cedula);
 	
 	
+	public Persona buscarPorCedulaCriteria(String cedula);
+	
+	
 	public Persona buscarPorId(Integer id);
 
 	public void guardar(Persona persona);

@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -89,6 +92,23 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		return myQuery.getSingleResult();
 	}
 
+	
+	//Criteria
+	@Override
+	public Persona buscarPorCedulaCriteria(String cedula) {
+		CriteriaBuilder myBuilder = this.entityManager.getCriteriaBuilder();
+		
+		CriteriaQuery<Persona> myQuery = myBuilder.createQuery(Persona.class);
+		
+		//Root FROM
+		Root<Persona> personaRoot = myQuery.from(Persona.class);
+		
+		TypedQuery<Persona> myQueryFinal = this.entityManager.createQuery(myQuery.select(personaRoot).where(myBuilder.equal(personaRoot.get("cedula"), cedula)));
+		
+		return myQueryFinal.getSingleResult();
+	}
+	
+	
 	@Override
 	public List<Persona> buscarPorGenero(String genero) {
 		Query myQuery = this.entityManager.createQuery("SELECT p FROM Persona p WHERE p.genero = :datoGenero");

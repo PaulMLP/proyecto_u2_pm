@@ -29,6 +29,9 @@ public interface IPersonaJpaRepository {
 	public Persona buscarPorCedulaNamedNative(String cedula);
 	
 	
+	public Persona buscarPorCedulaCriteria(String cedula);
+	 
+	
 	public Persona buscarPorId(Integer id);
 
 	public void insertar(Persona persona);

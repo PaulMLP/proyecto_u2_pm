@@ -26,43 +26,6 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 		
 		Persona p = this.personaJpaService.buscarPorCedulaNamedNative("100231312");
 		LOG.info("Native Named Persona: "+p);
-//		Estudiante est = new Estudiante();
-//		est.setNombre("Paul");
-//		est.setApellido("Merizalde");
-//		est.setCedula("1728189521");
-//		est.setCarrera("Ing Computacion");
-//		est.setSemestre(3);
-//		est.setEdad(22);
-//		est.setGenero("M");
-//		this.estudianteJpaService.guardar(est);
-//
-//		// 1. TypedQuery
-//		LOG.info("Estudiante Typed: " + this.estudianteJpaService.buscarPorCedula("1728189521"));
-//
-//		List<Estudiante> listaEstudiante = this.estudianteJpaService.buscarPorApellidoGenero("Merizalde", "M");
-//		for (Estudiante item : listaEstudiante) {
-//			LOG.info("Estudiante Typed: " + item);
-//		}
-//		
-//		// 2. NamedQuery
-//		listaEstudiante = this.estudianteJpaService.buscarPorSemestre(1);
-//		for (Estudiante item : listaEstudiante) {
-//			LOG.info("Estudiante Named: " + item);
-//		}
-//		
-//		listaEstudiante = this.estudianteJpaService.buscarPorEdad(17);
-//		for (Estudiante item : listaEstudiante) {
-//			LOG.info("Estudiante Named: " + item);
-//		}
-//		// 3. TypedQuery y NamedQuery
-//		listaEstudiante = this.estudianteJpaService.buscarPorEdadGenero(18, "M");
-//		for (Estudiante item : listaEstudiante) {
-//			LOG.info("Estudiante TypedNamed: " + item);
-//		}
-//		
-//		listaEstudiante = this.estudianteJpaService.buscarPorCarreraSemestre("Ing Computacion", 3);
-//		for (Estudiante item : listaEstudiante) {
-//			LOG.info("Estudiante TypedNamed: " + item);
-//		}
+
 	}
 }

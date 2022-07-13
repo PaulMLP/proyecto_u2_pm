@@ -67,7 +67,13 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService {
 	// Native Named
 	@Override
 	public Persona buscarPorCedulaNamedNative(String cedula) {
-		return this.iPersonaJpaRepository.buscarPorCedula(cedula);
+		return this.iPersonaJpaRepository.buscarPorCedulaNamedNative(cedula);
+	}
+
+	// Criteria
+	@Override
+	public Persona buscarPorCedulaCriteria(String cedula) {
+		return this.iPersonaJpaRepository.buscarPorCedulaCriteria(cedula);
 	}
 
 	@Override
