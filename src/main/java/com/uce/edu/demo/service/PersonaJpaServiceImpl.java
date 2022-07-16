@@ -76,6 +76,14 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService {
 		return this.iPersonaJpaRepository.buscarPorCedulaCriteria(cedula);
 	}
 
+
+	@Override
+	public Persona buscarDinamicamente(String nombre, String apellido, String genero) {
+		return this.iPersonaJpaRepository.buscarDinamicamente(nombre, apellido, genero);
+	}
+
+	
+	
 	@Override
 	public List<Persona> buscarPorGenero(String genero) {
 		return this.iPersonaJpaRepository.buscarPorGenero(genero);

@@ -30,6 +30,8 @@ public interface IPersonaJpaService {
 	
 	public Persona buscarPorCedulaCriteria(String cedula);
 	
+	public Persona buscarDinamicamente(String nombre, String apellido, String genero);
+	
 	
 	public Persona buscarPorId(Integer id);
 
