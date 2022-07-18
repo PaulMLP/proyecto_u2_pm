@@ -6,8 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Persona;
-import com.uce.edu.demo.service.IPersonaJpaService;
+import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.service.IEstudianteJpaService;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -15,7 +15,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private IPersonaJpaService personaJpaService;
+	private IEstudianteJpaService estudianteJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
@@ -24,10 +24,10 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Persona p = this.personaJpaService.buscarPorCedulaCriteria("100231312");
-		LOG.info("Persona Criteria API: " + p);
-		
-		Persona perDinamica = this.personaJpaService.buscarDinamicamente("Lucia", "Armas", "F");
-		LOG.info("Persona Dinamica: " + perDinamica);
+		Estudiante e = this.estudianteJpaService.buscarPorCedulaCriteria("1728189521");
+		LOG.info("Estudiante Criteria API: " + e);
+
+		Estudiante estDinamica = this.estudianteJpaService.buscarPorGeneroCriteria("M");
+		LOG.info("Estudiante Dinamica: " + estDinamica);
 	}
 }

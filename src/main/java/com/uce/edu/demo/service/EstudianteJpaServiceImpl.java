@@ -75,4 +75,14 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 		return this.iEstudianteJpaRepository.buscarPorGeneroEdadNamedNative(genero, edad);
 	}
 
+	@Override
+	public Estudiante buscarPorCedulaCriteria(String cedula) {
+		return this.iEstudianteJpaRepository.buscarPorCedulaCriteria(cedula);
+	}
+
+	@Override
+	public Estudiante buscarPorGeneroCriteria(String genero) {
+		return this.iEstudianteJpaRepository.buscarPorGeneroCriteria(genero);
+	}
+
 }

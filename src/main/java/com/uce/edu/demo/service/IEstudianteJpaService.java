@@ -30,5 +30,10 @@ public interface IEstudianteJpaService {
 	public List<Estudiante> buscarPorApellidoNombreNamedNative(String apellido, String nombre);
 
 	public List<Estudiante> buscarPorGeneroEdadNamedNative(String genero, Integer edad);
+	
+	
+	public Estudiante buscarPorCedulaCriteria(String cedula);
+	
+	public Estudiante buscarPorGeneroCriteria(String genero);
 
 }

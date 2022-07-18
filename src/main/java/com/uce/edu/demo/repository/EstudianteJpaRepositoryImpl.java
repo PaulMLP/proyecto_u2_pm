@@ -6,11 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.Persona;
 
 @Repository
 @Transactional
@@ -115,4 +120,38 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		return myQuery.getResultList();
 	}
 
+	
+	// Criteria
+	@Override
+	public Estudiante buscarPorCedulaCriteria(String cedula) {
+		CriteriaBuilder myBuilder = this.entityManager.getCriteriaBuilder();
+
+		// Especificamos el retorno de mi SQL
+		CriteriaQuery<Estudiante> myQuery = myBuilder.createQuery(Estudiante.class);
+
+		// Aqui empezamos a construir el SQL
+		// Root FROM
+		Root<Estudiante> estudianteRoot = myQuery.from(Estudiante.class); // FROM Persona
+
+		TypedQuery<Estudiante> myQueryFinal = this.entityManager
+				.createQuery(myQuery.select(estudianteRoot).where(myBuilder.equal(estudianteRoot.get("cedula"), cedula)));
+
+		return myQueryFinal.getSingleResult();
+	}
+
+	@Override
+	public Estudiante buscarPorGeneroCriteria(String genero) {
+		CriteriaBuilder myCriteria = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Estudiante> myQuery = myCriteria.createQuery(Estudiante.class);
+
+		Root<Estudiante> myTabla = myQuery.from(Estudiante.class);
+
+		Predicate predicadoGenero = myCriteria.equal(myTabla.get("genero"), genero);
+
+		myQuery.select(myTabla).where(predicadoGenero).orderBy(myCriteria.asc(myTabla.get("edad")));
+		TypedQuery<Estudiante> myQueryFinal = this.entityManager
+				.createQuery(myQuery);
+		
+		return myQueryFinal.getSingleResult();
+	}
 }

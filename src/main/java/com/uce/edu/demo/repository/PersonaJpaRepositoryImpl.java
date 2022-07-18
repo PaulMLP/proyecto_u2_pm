@@ -159,7 +159,7 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 			miPredicadoFinal = myCriteria.or(predicadoNombre, predicadoApellido);
 		}
 		
-		miPredicadoFinal = myCriteria.and(predicadoGenero);
+		miPredicadoFinal = myCriteria.and(miPredicadoFinal,predicadoGenero);
 		
 		myQuery.select(myTabla).where(miPredicadoFinal);
 		TypedQuery<Persona> myQueryFinal = this.entityManager
