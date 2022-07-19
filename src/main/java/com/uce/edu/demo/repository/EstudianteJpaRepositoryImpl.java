@@ -15,7 +15,11 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteSemestre;
+import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
 import com.uce.edu.demo.repository.modelo.Persona;
+import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
+import com.uce.edu.demo.repository.modelo.PersonaSencilla;
 
 @Repository
 @Transactional
@@ -120,7 +124,6 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		return myQuery.getResultList();
 	}
 
-	
 	// Criteria
 	@Override
 	public Estudiante buscarPorCedulaCriteria(String cedula) {
@@ -133,8 +136,8 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		// Root FROM
 		Root<Estudiante> estudianteRoot = myQuery.from(Estudiante.class); // FROM Persona
 
-		TypedQuery<Estudiante> myQueryFinal = this.entityManager
-				.createQuery(myQuery.select(estudianteRoot).where(myBuilder.equal(estudianteRoot.get("cedula"), cedula)));
+		TypedQuery<Estudiante> myQueryFinal = this.entityManager.createQuery(
+				myQuery.select(estudianteRoot).where(myBuilder.equal(estudianteRoot.get("cedula"), cedula)));
 
 		return myQueryFinal.getSingleResult();
 	}
@@ -149,9 +152,26 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		Predicate predicadoGenero = myCriteria.equal(myTabla.get("genero"), genero);
 
 		myQuery.select(myTabla).where(predicadoGenero).orderBy(myCriteria.asc(myTabla.get("edad")));
-		TypedQuery<Estudiante> myQueryFinal = this.entityManager
-				.createQuery(myQuery);
-		
+		TypedQuery<Estudiante> myQueryFinal = this.entityManager.createQuery(myQuery);
+
 		return myQueryFinal.getSingleResult();
+	}
+
+	@Override
+	public List<EstudianteSencillo> buscarSencillo(String apellido) {
+		TypedQuery<EstudianteSencillo> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.repository.modelo.EstudianteSencillo(e.nombre, e.apellido, e.carrera) FROM Estudiante e WHERE e.apellido = :datoApellido GROUP BY e.nombre, e.apellido, e.carrera",
+				EstudianteSencillo.class);
+		myQuery.setParameter("datoApellido", apellido);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<EstudianteSemestre> consultarEstudiantesCarrera(String carrera) {
+		TypedQuery<EstudianteSemestre> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.repository.modelo.EstudianteSemestre(e.carrera, e.edad) FROM Estudiante e WHERE e.carrera = :datoCarrera GROUP BY e.carrera, e.edad ORDER BY e.edad",
+				EstudianteSemestre.class);
+		myQuery.setParameter("datoCarrera", carrera);
+		return myQuery.getResultList();
 	}
 }

@@ -3,6 +3,8 @@ package com.uce.edu.demo.repository;
 import java.util.List;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteSemestre;
+import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
 
 public interface IEstudianteJpaRepository {
 
@@ -21,6 +23,11 @@ public interface IEstudianteJpaRepository {
 	public List<Estudiante> buscarPorSemestre(Integer semestre);
 
 	public List<Estudiante> buscarPorEdad(Integer edad);
+	
+	
+	public List<EstudianteSencillo> buscarSencillo(String apellido);
+	
+	public List<EstudianteSemestre> consultarEstudiantesCarrera(String carrera);
 	
 
 	public Estudiante buscarPorCedulaNative(String cedula);
