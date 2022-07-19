@@ -15,6 +15,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Persona;
+import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
+import com.uce.edu.demo.repository.modelo.PersonaSencilla;
 
 @Repository
 @Transactional
@@ -131,15 +133,12 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		} else {
 			miPredicadoFinal = myCriteria.or(predicadoNombre, predicadoApellido);
 		}
-		
+
 		myQuery.select(myTabla).where(miPredicadoFinal);
-		TypedQuery<Persona> myQueryFinal = this.entityManager
-				.createQuery(myQuery);
+		TypedQuery<Persona> myQueryFinal = this.entityManager.createQuery(myQuery);
 
 		return myQueryFinal.getSingleResult();
 	}
-
-	
 
 	@Override
 	public Persona buscarDinamicamentePredicados(String nombre, String apellido, String genero) {
@@ -158,12 +157,11 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		} else {
 			miPredicadoFinal = myCriteria.or(predicadoNombre, predicadoApellido);
 		}
-		
-		miPredicadoFinal = myCriteria.and(miPredicadoFinal,predicadoGenero);
-		
+
+		miPredicadoFinal = myCriteria.and(miPredicadoFinal, predicadoGenero);
+
 		myQuery.select(myTabla).where(miPredicadoFinal);
-		TypedQuery<Persona> myQueryFinal = this.entityManager
-				.createQuery(myQuery);
+		TypedQuery<Persona> myQueryFinal = this.entityManager.createQuery(myQuery);
 
 		return myQueryFinal.getSingleResult();
 	}
@@ -212,6 +210,23 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		Query myQuery = this.entityManager.createQuery("DELETE FROM Persona p WHERE p.genero = :datoGenero");
 		myQuery.setParameter("datoGenero", genero);
 		return myQuery.executeUpdate();
+	}
+
+	@Override
+	public List<PersonaSencilla> buscarPorNombreApellidoSencillo(String apellido) {
+		TypedQuery<PersonaSencilla> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.repository.modelo.PersonaSencilla(p.nombre, p.apellido) FROM Persona p WHERE p.apellido = :datoApellido",
+				PersonaSencilla.class);
+		myQuery.setParameter("datoApellido", apellido);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<PersonaContadorGenero> consultarCantidadPorGenero() {
+		TypedQuery<PersonaContadorGenero> myQuery = this.entityManager.createQuery(
+				"SELECT NEW com.uce.edu.demo.repository.modelo.PersonaContadorGenero(p.genero, COUNT(p.genero)) FROM Persona p GROUP BY p.genero",
+				PersonaContadorGenero.class);
+		return myQuery.getResultList();
 	}
 
 }
