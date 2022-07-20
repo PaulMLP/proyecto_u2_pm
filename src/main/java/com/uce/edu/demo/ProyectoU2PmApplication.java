@@ -1,6 +1,6 @@
 package com.uce.edu.demo;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.EstudianteSemestre;
-import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
-import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
-import com.uce.edu.demo.repository.modelo.PersonaSencilla;
-import com.uce.edu.demo.service.IEstudianteJpaService;
-import com.uce.edu.demo.service.IPersonaJpaService;
+import com.uce.edu.demo.repository.modelo.Ciudadano;
+import com.uce.edu.demo.repository.modelo.Empleado;
+import com.uce.edu.demo.service.ICiudadanoService;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -21,8 +18,8 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private IEstudianteJpaService estudianteJpaService;
-
+	private ICiudadanoService ciudadanoService;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
 	}
@@ -30,14 +27,17 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		List<EstudianteSencillo> listaSencilla = this.estudianteJpaService.buscarSencillo("Merizalde");
-		for (EstudianteSencillo estItem : listaSencilla) {
-			LOG.info(estItem);
-		}
+		Ciudadano ciudadano = new Ciudadano();
+		ciudadano.setNombre("Paul");
+		ciudadano.setApellido("Merizalde");
 		
-		List<EstudianteSemestre> listaSemestre = this.estudianteJpaService.consultarEstudiantesCarrera("Ing Computacion");
-		for (EstudianteSemestre estItem : listaSemestre) {
-			LOG.info(estItem);
-		}
+		Empleado empleado = new Empleado();
+		empleado.setCodigoIess("1648462");
+		empleado.setSalario(new BigDecimal(100));
+		empleado.setCiudadano(ciudadano);
+		
+		ciudadano.setEmpleado(empleado);
+		
+		this.ciudadanoService.insertar(ciudadano);
 	}
 }
