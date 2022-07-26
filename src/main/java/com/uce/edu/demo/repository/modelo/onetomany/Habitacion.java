@@ -34,7 +34,6 @@ public class Habitacion {
 	private Hotel hotel;
 
 	
-
 	@Override
 	public String toString() {
 		return "Habitacion [id=" + id + ", numero=" + numero + ", piso=" + piso + ", tipo=" + tipo + "]";
