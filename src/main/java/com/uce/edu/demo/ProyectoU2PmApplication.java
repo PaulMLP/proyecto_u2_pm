@@ -1,14 +1,17 @@
 package com.uce.edu.demo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.onetomany.Pasajero;
-import com.uce.edu.demo.repository.modelo.onetomany.Transporte;
-import com.uce.edu.demo.service.ITransporteService;
+import com.uce.edu.demo.repository.modelo.manytomany.Autor;
+import com.uce.edu.demo.repository.modelo.manytomany.Libro;
+import com.uce.edu.demo.service.ILibroService;
 
 @SpringBootApplication
 public class ProyectoU2PmApplication implements CommandLineRunner {
@@ -16,7 +19,7 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2PmApplication.class);
 
 	@Autowired
-	private ITransporteService transporteService;
+	private ILibroService libroService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2PmApplication.class, args);
@@ -24,18 +27,18 @@ public class ProyectoU2PmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		Transporte transporte = new Transporte();
-		transporte.setPlaca("PIB001");
-		transporte.setNombre("A10P");
-		transporte.setCooperativa("Reino de Quito");
-
-		LOG.info("Se inserta: "+transporte);
-		this.transporteService.insertar(transporte);
 		
-		LOG.info("Se encontro: "+this.transporteService.buscar("A10P"));		
-		LOG.info("Se actualizo: " + this.transporteService.actualizar("PIB001", "Zabala")+" transporte(s)");
+		Libro libro = new Libro();
+		libro.setTitulo("El Hobbit");
+		libro.setCantidadPaginas(250);
 		
-		LOG.info("Se elimino: "+this.transporteService.eliminar("PIB001")+" transporte(s)");
+		Autor autor = new Autor();
+		autor.setNombre("J.R.R. Tolkien");
+		
+		Set<Autor> listaAutores = new HashSet<>();
+		listaAutores.add(autor);
+		
+		libro.setAutores(listaAutores);
+		this.libroService.insertar(libro);
 	}
 }
